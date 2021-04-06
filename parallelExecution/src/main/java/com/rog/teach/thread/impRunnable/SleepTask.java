@@ -1,4 +1,4 @@
-package com.rog.teach.thread;
+package com.rog.teach.thread.impRunnable;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
