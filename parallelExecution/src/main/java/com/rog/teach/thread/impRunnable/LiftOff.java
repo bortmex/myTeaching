@@ -1,4 +1,4 @@
-package com.rog.teach.thread;
+package com.rog.teach.thread.impRunnable;
 
 public class LiftOff implements Runnable {
     protected int countDown = 10;
