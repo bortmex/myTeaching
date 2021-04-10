@@ -1,6 +1,6 @@
 package com.rog.teach.thread.synchronizedMethod;
 
-public class PairManager2 extends PairSimpleClassManager {
+public class  PairManager2 extends PairSimpleClassManager {
     public void increment() {
         PairSimpleClass temp;
         synchronized (this) {
