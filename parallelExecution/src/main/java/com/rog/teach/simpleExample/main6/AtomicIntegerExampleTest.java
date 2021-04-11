@@ -1,7 +1,6 @@
 package com.rog.teach.simpleExample.main6;
 
 import com.rog.teach.thread.AtomicIntegerTest;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
