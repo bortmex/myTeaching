@@ -1,1 +1,1 @@
-web: java -cp springBoot/target/classes/:target/dependency/* com.rog.teach.Application
+web: java -cp springBoot/target/classes/;target/dependency/* com.rog.teach.application
