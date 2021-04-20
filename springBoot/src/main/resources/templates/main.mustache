@@ -2,19 +2,28 @@
 <html>
 <body>
     <div>
-        <form method="post" action="/add">
+        <form action="/logout" method="post">
+            <input type="submit" value="Выйти"/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+        </form>
+        <form action="/main" method="post">
             <input type="text" name="text" placeholder="Введи месседж">
             <input type="text" name="tag" placeholder="Тэг">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
             <button type="submit">Добавить</button>
         </form>
     </div>
     <div>Список сообщений</div>
     <form method="post" action="/filter">
         <input type="text" name="text">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}">
         <button type="submit">Найти</button>
     </form>
-    <div style="visibility:{{tagVisible}}">
-        <div>Поиск идет по тэгу: {{tag}}</div>
+    <div>
+        <div>{{#foundTag}}
+            {{foundTag}}
+            {{/foundTag}}
+        </div>
     </div>
     {{#messages}}
     <div>
