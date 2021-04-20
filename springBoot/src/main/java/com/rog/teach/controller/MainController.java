@@ -1,4 +1,4 @@
-package com.rog.teach;
+package com.rog.teach.controller;
 
 import com.rog.teach.domain.Message;
 import com.rog.teach.repos.MessageRepo;
@@ -15,32 +15,29 @@ import java.util.Map;
 
 @Controller
 //@RequestMapping(path="/greeting")
-public class GreetingContoller {
+public class MainController {
 
     @Autowired
     private MessageRepo messageRepo;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Map<String, Object> model){
-        model.put("name", name);
+    @GetMapping("/")
+    public String greeting(Map<String, Object> model){
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Map<String, Object> model){
         Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
-        visibleFilterTag(model, null, false);
         return "main";
     }
 
-    @PostMapping("add")
+    @PostMapping("/main")
     public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model){
         Message message = new Message(text, tag);
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
-        visibleFilterTag(model, null, false);
         return "main";
     }
 
@@ -50,25 +47,11 @@ public class GreetingContoller {
         if(text!=null && !text.isEmpty()) {
             messages = messageRepo.findByTag(text);
             model.put("messages", messages);
-            visibleFilterTag(model, text, true);
+            model.put("foundTag", "Ищим по тегу: " + text);
         }else {
             messages = messageRepo.findAll();
-            visibleFilterTag(model, null, true);
         }
         model.put("messages", messages);
         return "main";
-    }
-
-    private void visibleFilterTag(Map<String, Object> model,String tag, boolean visible){
-        if(tag == null){
-            model.put("tag", "");
-        } else {
-            model.put("tag", tag);
-        }
-        if(visible) {
-            model.put("tagVisible", "visible");
-        } else {
-            model.put("tagVisible", "hidden");
-        }
     }
 }
