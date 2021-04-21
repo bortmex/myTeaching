@@ -1,1 +1,1 @@
-web: java -jar springBoot/target/SpringBoot-1.0-SNAPSHOT.jar
+web: java -Dspring.profiles.active=default -Dserver.port=$PORT -jar springBoot/target/*.jar
