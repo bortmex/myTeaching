@@ -1,1 +1,1 @@
-web: java -cp springBoot/target/classes\;springBoot/target/dependency/* com.rog.teach.Application
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war

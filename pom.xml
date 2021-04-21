@@ -18,29 +18,42 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
-                        <id>clean-jar-artifacts</id>
-                        <phase>install</phase>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>clean</goal>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                            <filesets>
-                                <fileset>
-                                    <directory>target</directory>
-                                    <excludes>
-                                        <exclude>*.war</exclude>
-                                        <exclude>dependency/*.jar</exclude>
-                                    </excludes>
-                                </fileset>
-                            </filesets>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>9.0.20.0</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
