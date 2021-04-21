@@ -1,1 +1,1 @@
-web: java -cp target/classes\;target/dependency/* com.rog.teach.application
+web: java -cp target/classes\;target/dependency/* com.rog.teach.Application
