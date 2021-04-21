@@ -1,1 +1,1 @@
-web: java -cp springBoot/target/classes/;target/dependency/* com.rog.teach.application
+web: java -Dspring.profiles.active=default -Dserver.port=$PORT -jar springBoot/target/*.jar com.rog.teach.Application server
