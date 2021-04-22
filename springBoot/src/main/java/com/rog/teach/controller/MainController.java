@@ -6,15 +6,15 @@ import com.rog.teach.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
+
+import static com.rog.teach.utils.DateUtils.ZONE.ZONED_DATE_TIME_EUROPE_MOSCOW;
+import static com.rog.teach.utils.DateUtils.getDateTimeAccordingZone;
 
 @Controller
 //@RequestMapping(path="/greeting")
@@ -37,7 +37,7 @@ public class MainController {
 
     @PostMapping("/main")
     public String add(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag, Map<String, Object> model){
-        Message message = new Message(text, tag, new Date(), user);
+        Message message = new Message(text, tag, getDateTimeAccordingZone(LocalDateTime.now(), ZONED_DATE_TIME_EUROPE_MOSCOW.getZone()), user);
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
