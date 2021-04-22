@@ -1,11 +1,9 @@
 package com.rog.teach.domain;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import static com.rog.teach.utils.Utils.getStrDate;
+import static com.rog.teach.utils.DateUtils.getStrDate;
 
 @Entity
 public class Message {
@@ -15,7 +13,7 @@ public class Message {
 
     private String text;
     private String tag;
-    private Date dateMessage;
+    private LocalDateTime dateMessage;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -23,7 +21,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String tag, Date date, User user) {
+    public Message(String text, String tag, LocalDateTime date, User user) {
         this.text = text;
         this.tag = tag;
         this.dateMessage = date;
@@ -46,11 +44,11 @@ public class Message {
         this.id = id;
     }
 
-    public Date getDateMessage() {
+    public LocalDateTime getDateMessage() {
         return dateMessage;
     }
 
-    public void setDateMessage(Date dateMessage) {
+    public void setDateMessage(LocalDateTime dateMessage) {
         this.dateMessage = dateMessage;
     }
 
