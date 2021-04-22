@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class MainController {
 
     @PostMapping("/main")
     public String add(@AuthenticationPrincipal User user, @RequestParam String text, @RequestParam String tag, Map<String, Object> model){
-        Message message = new Message(text, tag, user);
+        Message message = new Message(text, tag, new Date(), user);
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
