@@ -19,18 +19,10 @@ public class DateUtils {
         public ZoneId getZone() {
             return zone;
         }
-
-        public void setZone(ZoneId zone) {
-            this.zone = zone;
-        }
     }
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
 
     public static String getStrDate(LocalDateTime date) {
         return date.format(DATE_FORMAT);
-    }
-
-    public static LocalDateTime getDateTimeAccordingZone(LocalDateTime dateTime, ZoneId zoneId){
-        return ZonedDateTime.of(dateTime, zoneId).toLocalDateTime();
     }
 }
