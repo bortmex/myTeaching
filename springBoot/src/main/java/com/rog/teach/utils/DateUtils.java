@@ -20,7 +20,7 @@ public class DateUtils {
             return zone;
         }
     }
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public static String getStrDate(LocalDateTime date) {
         return date.format(DATE_FORMAT);

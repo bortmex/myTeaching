@@ -29,7 +29,7 @@ public class Message {
     }
 
     public String getAuthorName(){
-        return author != null ? author.getUsername() : "<none user>";
+        return (author != null && author.getUsername() != null) ? author.getUsername() : "<none user>";
     }
 
     public String getStrDateMessage(){
