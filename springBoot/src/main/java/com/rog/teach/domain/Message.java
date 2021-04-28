@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import static com.rog.teach.utils.DateUtils.getStrDate;
 
 @Entity
+@Table(name = "Message_$T")
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
