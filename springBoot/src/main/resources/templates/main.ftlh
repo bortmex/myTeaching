@@ -3,6 +3,7 @@
 <@c.page title="Чатик ^_^">
 <div>
     <@l.logout/>
+    <span><a href="/user">Список пользователей</a> </span>
 </div>
 <div>
     <form action="/main" method="post">
