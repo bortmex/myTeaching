@@ -20,7 +20,8 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
 
-    private String filename;
+    @Column(length = 65535)
+    private String file;
 
     public Message() {
     }
@@ -80,11 +81,11 @@ public class Message {
         this.author = author;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getFile() {
+        return file;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFile(String file) {
+        this.file = file;
     }
 }

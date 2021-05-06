@@ -3,6 +3,7 @@ package com.rog.teach.controller;
 import com.rog.teach.domain.Message;
 import com.rog.teach.domain.User;
 import com.rog.teach.repos.MessageRepo;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -39,18 +40,18 @@ public class MainController {
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model){
+    public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model){
+    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
         Iterable<Message> messages;
 
-        if(filter!=null && !filter.isEmpty()) {
+        if (filter != null && !filter.isEmpty()) {
             messages = messageRepo.findByTag(filter);
             model.addAttribute("messages", messages);
-        }else {
+        } else {
             messages = messageRepo.findAll();
         }
         model.addAttribute("messages", messages);
@@ -64,29 +65,14 @@ public class MainController {
             @RequestParam String text,
             @RequestParam String tag, Map<String, Object> model,
             @RequestParam("file") MultipartFile file
-            ) throws IOException {
+    ) throws IOException {
         Message message = new Message(text, tag, ZonedDateTime.now(ZONED_DATE_TIME_EUROPE_MOSCOW.getZone()).toLocalDateTime(), user);
 
-        if(file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty() && file.getSize()/1024 < 50){
-            File uploadDir = new File(System.getProperty("java.io.tmpdir") +uploadPath );
-            if(!uploadDir.exists()){
-                uploadDir.mkdirs();
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFileName = uuidFile + "." + file.getOriginalFilename();
-
-            try {
-                byte[] bytes = file.getBytes();
-                BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(System.getProperty("java.io.tmpdir") +uploadPath  + "/" + resultFileName)));
-                stream.write(bytes);
-                stream.close();
-            } catch (Exception e) {
-                System.out.println("sdf");
-            }
-
-            message.setFilename(resultFileName);
+        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty() && file.getSize() / 1024 < 50) {
+            byte[] imgBytesAsBase64 = Base64.encodeBase64(file.getBytes());
+            String imgDataAsBase64 = new String(imgBytesAsBase64);
+            String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+            message.setFile(imgAsBase64);
         }
 
         messageRepo.save(message);

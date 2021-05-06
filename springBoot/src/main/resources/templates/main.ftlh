@@ -29,8 +29,8 @@
         ${message.tag}
     </i>
     <div>
-        <#if message.filename??>
-            <img src="/img/${message.filename}">
+        <#if message.file??>
+            <img id="imageMessage" src="${message.file}"/>
         </#if>
     </div>
 </div>
