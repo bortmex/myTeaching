@@ -1,0 +1,63 @@
+server:
+  port: ${PORT:8081}
+
+management:
+  endpoint:
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+  server:
+    port: ${PORT:8081}
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/postgres
+    username: root
+    password: root
+  jpa:
+    generate-ddl: true
+  freemarker:
+    expose-request-attributes: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: messangerogov@gmail.com
+    password: Qrew4231
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mail:
+  debug: true
+
+upload:
+  path: /resources/uploads
+
+#  server.port=${PORT:8081}
+#
+#spring.datasource.url=jdbc:postgresql://localhost/postgres
+#spring.datasource.username=root
+#spring.datasource.password=root
+##spring.datasource.url=postgres://bfjukyuwmrvter:c28f9d9a07fccaa6caf1184f3c72ade7cc0b29f72bd8bde25cfff51103112f93@ec2-54-216-48-43.eu-west-1.compute.amazonaws.com:5432/dfrgnndid1hja2
+##spring.datasource.username=bfjukyuwmrvter
+##spring.datasource.password=c28f9d9a07fccaa6caf1184f3c72ade7cc0b29f72bd8bde25cfff51103112f93
+#spring.jpa.generate-ddl=true
+#spring.freemarker.expose-request-attributes=true
+#
+#upload.path=/resources/uploads
+#
+#spring.mail.host=smtp.yandex.ru
+#spring.mail.username=alexanderogov@yandex.ru
+#spring.mail.password=ulja949.kz
+#spring.mail.port=465
+#spring.mail.protocol=smtps
+#mail.debug=true

@@ -1,11 +1,17 @@
 package com.rog.teach.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static com.rog.teach.utils.DateUtils.getStrDate;
 
+
+@Data
 @Entity
+@NoArgsConstructor
 @Table(name = "Message_$T")
 public class Message {
     @Id
@@ -23,9 +29,6 @@ public class Message {
     @Column(length = 65535)
     private String file;
 
-    public Message() {
-    }
-
     public Message(String text, String tag, LocalDateTime date, User user) {
         this.text = text;
         this.tag = tag;
@@ -33,59 +36,12 @@ public class Message {
         this.author = user;
     }
 
-    public String getAuthorName(){
+    public String getAuthorName() {
         return (author != null && author.getUsername() != null) ? author.getUsername() : "<none user>";
     }
 
-    public String getStrDateMessage(){
+    public String getStrDateMessage() {
         return dateMessage != null ? getStrDate(dateMessage) : "<none date>";
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDateMessage() {
-        return dateMessage;
-    }
-
-    public void setDateMessage(LocalDateTime dateMessage) {
-        this.dateMessage = dateMessage;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
 }

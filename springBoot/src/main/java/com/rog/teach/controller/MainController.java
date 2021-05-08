@@ -3,8 +3,8 @@ package com.rog.teach.controller;
 import com.rog.teach.domain.Message;
 import com.rog.teach.domain.User;
 import com.rog.teach.repos.MessageRepo;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,26 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 import static com.rog.teach.utils.DateUtils.ZONE.ZONED_DATE_TIME_EUROPE_MOSCOW;
 
 @Controller
-//@RequestMapping(path="/greeting")
+@RequiredArgsConstructor
 public class MainController {
 
-    @Autowired
-    private MessageRepo messageRepo;
+    private final MessageRepo messageRepo;
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -57,6 +52,12 @@ public class MainController {
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
         return "main";
+    }
+
+    @GetMapping("/login/error")
+    public String loginError(HttpSession session, Model model) {
+        model.addAttribute("message", "Ошибка авторизации, возможно не пройдена авторизация по email!");
+        return "login";
     }
 
     @PostMapping("/main")

@@ -1,5 +1,7 @@
 package com.rog.teach.domain;
 
+import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,15 +9,21 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+@Data
 @Entity
 @Table(name = "User_$T")
 public class User implements UserDetails {
+
+    private static final Long serialVersionUID = -4695711441767848865L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String password;
     private boolean active;
+    private String email;
+    private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "userrole_$t", joinColumns = @JoinColumn(name = "user_id"))
@@ -26,50 +34,13 @@ public class User implements UserDetails {
         return roles.contains(Role.ADMIN);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isActive() {
+    public boolean isActive(){
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override

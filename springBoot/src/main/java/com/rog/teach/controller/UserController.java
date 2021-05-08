@@ -3,6 +3,7 @@ package com.rog.teach.controller;
 import com.rog.teach.domain.Role;
 import com.rog.teach.domain.User;
 import com.rog.teach.repos.UserRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,11 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 @PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
-    @Autowired
-    private UserRepo userRepo;
+
+    private final UserRepo userRepo;
 
     @GetMapping
     public String userList(Model model){
