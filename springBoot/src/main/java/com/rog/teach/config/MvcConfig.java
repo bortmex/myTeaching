@@ -7,8 +7,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
 @EnableWebMvc
+@Configuration
 public class MvcConfig implements WebMvcConfigurer{
 
     @Value("${upload.path}")
