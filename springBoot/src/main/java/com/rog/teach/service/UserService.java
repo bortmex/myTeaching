@@ -26,7 +26,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(s);
-        if(StringUtils.isEmpty(user.getActivationCode())){
+        if(StringUtils.isNotEmpty(user.getActivationCode())){
             throw new UsernameNotFoundException(ERROR_ACTUVATION_ACCOUNT.getText());
         }
         return userRepo.findByUsername(s);
