@@ -16,9 +16,9 @@ management:
 
 spring:
   datasource:
-    url: postgres://duyxumqcjjxyyp:b07780b6c336db1a63764be4d58cf04d7f8b703ee2709dcba8e2af3c190c685d@ec2-34-254-69-72.eu-west-1.compute.amazonaws.com:5432/dfe8ms8ecp2kph
-    username: duyxumqcjjxyyp
-    password: b07780b6c336db1a63764be4d58cf04d7f8b703ee2709dcba8e2af3c190c685d
+    url: postgres://bfjukyuwmrvter:c28f9d9a07fccaa6caf1184f3c72ade7cc0b29f72bd8bde25cfff51103112f93@ec2-54-216-48-43.eu-west-1.compute.amazonaws.com:5432/dfrgnndid1hja2
+    username: bfjukyuwmrvter
+    password: c28f9d9a07fccaa6caf1184f3c72ade7cc0b29f72bd8bde25cfff51103112f93
   #  url: jdbc:postgresql://localhost/postgres1
   #  username: root
   #  password: root
@@ -26,7 +26,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   freemarker:
     expose-request-attributes: true
   mail:
