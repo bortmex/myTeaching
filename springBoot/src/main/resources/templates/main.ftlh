@@ -35,20 +35,20 @@
             </form>
         </div>
     </div>
-    <div class="card-columns">
+    <div>
         <#list messages as message>
             <div class="card my-3">
                 <#if message.file??>
-                    <img id="imageMessage" src="${message.file}" class="card-img-top"/>
+                    <img id="imageMessage" src="${message.file}" class="card-img-top" style="width: 18rem;"/>
                 </#if>
                 <div class="m-2">
-                    <span class="dateFont">${message.strDateMessage}</span>
                     <span>${message.text}</span>
                     <i style="color:blue">
                         ${message.tag}
                     </i>
                 </div>
-                <div class="card-footer text-muted">
+                <div class="card-footer text-right" style="height: 35px;">
+                    <span class="dateFont">${message.strDateMessage}</span>
                     ${message.authorName}
                 </div>
             </div>

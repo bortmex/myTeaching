@@ -16,11 +16,17 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost/postgres
-    username: root
-    password: root
+    url: postgres://duyxumqcjjxyyp:b07780b6c336db1a63764be4d58cf04d7f8b703ee2709dcba8e2af3c190c685d@ec2-34-254-69-72.eu-west-1.compute.amazonaws.com:5432/dfe8ms8ecp2kph
+    username: duyxumqcjjxyyp
+    password: b07780b6c336db1a63764be4d58cf04d7f8b703ee2709dcba8e2af3c190c685d
+ #   url: jdbc:postgresql://localhost/postgres
+ #   username: root
+ #   password: root
   jpa:
     generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
   freemarker:
     expose-request-attributes: true
   mail:
@@ -35,6 +41,8 @@ spring:
           auth: true
           starttls:
             enable: true
+  flyway:
+    baseline-on-migrate: true
 
 mail:
   debug: true
