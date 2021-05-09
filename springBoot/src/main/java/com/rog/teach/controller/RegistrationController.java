@@ -26,13 +26,12 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model) {
+    public String addUser(User user, Model model) {
         String message = userService.addUser(user);
         if (StringUtils.isNotEmpty(message)) {
-            model.put("message", message);
+            model.addAttribute("message", message);
             return "registration";
         }
-
         return "redirect:/login";
     }
 
