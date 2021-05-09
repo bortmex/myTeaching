@@ -41,11 +41,8 @@ spring:
           auth: true
           starttls:
             enable: true
-<<<<<<< Updated upstream
-=======
   flyway:
     baseline-on-migrate: true
->>>>>>> Stashed changes
 
 mail:
   debug: true

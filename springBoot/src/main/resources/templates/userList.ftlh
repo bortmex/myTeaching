@@ -5,8 +5,9 @@
     <table>
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
+            <th>Имя</th>
+            <th>Роль</th>
+            <th>Активация аккаунта по email</th>
             <th></th>
         </tr>
         </thead>
@@ -15,6 +16,14 @@
         <tr>
             <td>${user.username!"null or missing"}</td>
             <td><#list user.roles as role>${role}<#sep>, </#list> </td>
+            <td>
+                <#if user.activationCode?? && user.activationCode="null">
+                    Активирован
+                <#else>
+                    Не активирован
+                </#if>
+            </td>
+
             <td><a href="/user/${user.id?c}"> Редактировать</a></td>
         </tr>
     </#list>
