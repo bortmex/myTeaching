@@ -1,4 +1,4 @@
-create sequence if not exists hibernate_sequence start 1 increment 1;
+create sequence if not exists hibernate_sequence start 10000 increment 10;
 
 create table if not exists message_$t (
     id int8 not null,
