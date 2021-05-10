@@ -26,10 +26,10 @@ create table if not exists userrole_$t (
     roles varchar(255)
 );
 
-alter table message_$t
+alter table if exists message_$t
     add constraint message_user_fk
     foreign key (user_id) references user_$t;
 
-alter table userrole_$t
+alter table if exists userrole_$t
     add constraint user_role_user_fk
     foreign key (user_id) references user_$t;
