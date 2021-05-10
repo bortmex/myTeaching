@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,10 +24,12 @@ public class UserService implements UserDetailsService {
 
     private final MailSender mailSender;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(s);
-        if(StringUtils.isNotEmpty(user.getActivationCode())){
+        if(!"null".equals(user.getActivationCode())){
             throw new UsernameNotFoundException(ERROR_ACTUVATION_ACCOUNT.getText());
         }
         return userRepo.findByUsername(s);
@@ -46,6 +49,7 @@ public class UserService implements UserDetailsService {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
         sendMessage(user);
         return null;
@@ -69,6 +73,7 @@ public class UserService implements UserDetailsService {
         }
 
         user.setActivationCode("null");
+        user.setPassword2(user.getPassword());
         userRepo.save(user);
         return true;
     }
@@ -106,7 +111,7 @@ public class UserService implements UserDetailsService {
         }
 
         if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
+            user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepo.save(user);

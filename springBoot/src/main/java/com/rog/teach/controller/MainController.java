@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.rog.teach.controller.ControllerUtils.getErrors;
 import static com.rog.teach.utils.DateUtils.ZONE.ZONED_DATE_TIME_EUROPE_MOSCOW;
 
 @Controller
@@ -63,22 +66,32 @@ public class MainController {
     @PostMapping("/main")
     public String add(
             @AuthenticationPrincipal User user,
-            @RequestParam String text,
-            @RequestParam String tag, Map<String, Object> model,
+            @Valid Message message,
+            BindingResult bindingResult,
+            Model model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        Message message = new Message(text, tag, ZonedDateTime.now(ZONED_DATE_TIME_EUROPE_MOSCOW.getZone()).toLocalDateTime(), user);
+        message.setAuthor(user);
+        message.setDateMessage(ZonedDateTime.now(ZONED_DATE_TIME_EUROPE_MOSCOW.getZone()).toLocalDateTime());
 
-        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty() && file.getSize() / 1024 < 50) {
-            byte[] imgBytesAsBase64 = Base64.encodeBase64(file.getBytes());
-            String imgDataAsBase64 = new String(imgBytesAsBase64);
-            String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
-            message.setFile(imgAsBase64);
+        Map<String, String> errorsMap = getErrors(bindingResult);
+        if (!errorsMap.isEmpty()) {
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("message", message);
+        } else {
+            if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty() && file.getSize() / 1024 < 50) {
+                byte[] imgBytesAsBase64 = Base64.encodeBase64(file.getBytes());
+                String imgDataAsBase64 = new String(imgBytesAsBase64);
+                String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+                message.setFile(imgAsBase64);
+            }
+            model.addAttribute("message", null);
+            messageRepo.save(message);
         }
-
-        messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
+        model.addAttribute("messages", messages);
         return "main";
     }
+
+
 }

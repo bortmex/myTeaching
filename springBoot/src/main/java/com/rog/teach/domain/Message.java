@@ -2,8 +2,10 @@ package com.rog.teach.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 import static com.rog.teach.utils.DateUtils.getStrDate;
@@ -18,7 +20,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Заполните поле")
+    @Length(max = 2048, message = "Сообщение слишком большое (больше 2кб)")
     private String text;
+    @Length(max = 255, message = "Тэг слишком большой (более 255 байт)")
     private String tag;
     private LocalDateTime dateMessage;
 
