@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(s);
-        if(!"null".equals(user.getActivationCode())){
+        if(user == null || !"null".equals(user.getActivationCode())){
             throw new UsernameNotFoundException(ERROR_ACTUVATION_ACCOUNT.getText());
         }
         return userRepo.findByUsername(s);
