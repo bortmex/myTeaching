@@ -59,7 +59,14 @@ public class MainController {
 
     @GetMapping("/login/error")
     public String loginError(HttpSession session, Model model) {
-        model.addAttribute("message", "Ошибка авторизации, возможно не пройдена авторизация по email!");
+        model.addAttribute("message", "Ошибка авторизации, пользователь не найден или не пройдена авторизация по email!");
+        model.addAttribute("messageType", "danger");
+        return "login";
+    }
+
+    @GetMapping("/login")
+    public String login(HttpSession session, Model model) {
+        model.addAttribute("showError", false);
         return "login";
     }
 
