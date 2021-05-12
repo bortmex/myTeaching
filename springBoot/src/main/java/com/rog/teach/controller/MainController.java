@@ -50,7 +50,7 @@ public class MainController {
             messages = messageRepo.findByTag(filter);
             model.addAttribute("messages", messages);
         } else {
-            messages = messageRepo.findAll();
+            messages = messageRepo.findAllByOrderByDateMessageDesc();
         }
         model.addAttribute("messages", messages);
         model.addAttribute("filter", filter);
@@ -95,7 +95,7 @@ public class MainController {
             model.addAttribute("message", null);
             messageRepo.save(message);
         }
-        Iterable<Message> messages = messageRepo.findAll();
+        Iterable<Message> messages = messageRepo.findAllByOrderByDateMessageDesc();
         model.addAttribute("messages", messages);
         return "main";
     }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface MessageRepo extends CrudRepository<Message, Long> {
 
     List<Message> findByTag(String tag);
+
+    List<Message> findAllByOrderByDateMessageDesc();
 }
