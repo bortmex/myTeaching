@@ -41,15 +41,23 @@ spring:
           auth: true
           starttls:
             enable: true
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+
   flyway:
     baseline-on-migrate: true
-    enabled: true
+    enabled: false
 
 mail:
   debug: true
 
 upload:
   path: /resources/uploads
+
+recaptcha:
+  secret: 6Le0ZNAaAAAAAJnMxdudp0sXwph226dqvAagbCUe
 
 #  server.port=${PORT:8081}
 #

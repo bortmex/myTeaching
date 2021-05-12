@@ -25,8 +25,6 @@ public class User implements UserDetails {
     private String username;
     @NotBlank(message = "Пароль не может быть пустым")
     private String password;
-    @Transient
-    private String password2;
     private boolean active;
 
     @Email(message = "Email не корректен")
