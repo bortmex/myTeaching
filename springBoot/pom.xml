@@ -119,10 +119,10 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-jdbc</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-jdbc</artifactId>-->
+<!--        </dependency>-->
 
     </dependencies>
 
@@ -196,8 +196,8 @@
                 <version>1.5</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost/postgres1?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=UTF-8</url>
-                    <!--<url>jdbc:postgresql://localhost/postgres1?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=UTF-8</url>-->
+                    <url>jdbc:postgres://bfjukyuwmrvter:c28f9d9a07fccaa6caf1184f3c72ade7cc0b29f72bd8bde25cfff51103112f93@ec2-54-216-48-43.eu-west-1.compute.amazonaws.com:5432/dfrgnndid1hja2?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=UTF-8</url>
+<!--                    <url>jdbc:postgresql://localhost/postgres1?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=UTF-8</url>-->
                     <baseDir>db/migration</baseDir>
                 </configuration>
             </plugin>
