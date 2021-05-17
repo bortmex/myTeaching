@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Map;
 
 @Controller
@@ -56,7 +57,7 @@ public class UserController {
             @AuthenticationPrincipal User user,
             @RequestParam String password,
             @RequestParam String email
-    ) {
+    ) throws MessagingException {
         userService.updateProfile(user, password, email);
         return "redirect:/user/profile";
     }
