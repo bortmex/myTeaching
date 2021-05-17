@@ -1,5 +1,6 @@
 package com.rog.teach.service;
 
+import com.rog.teach.domain.ErrorMessage;
 import com.rog.teach.domain.Role;
 import com.rog.teach.domain.User;
 import com.rog.teach.repos.UserRepo;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,16 +40,16 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(s);
     }
 
-    public String addUser(User user) {
+    public ErrorMessage addUser(User user) throws MessagingException {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
-            return ERROR_DUBL_USER.getText();
+            return ERROR_DUBL_USER;
         }
         User userFromDbWithEmail = userRepo.findByEmail(user.getEmail());
 
         if (userFromDbWithEmail != null) {
-            return ERROR_DUBL_USER_EMAIL.getText();
+            return ERROR_DUBL_USER_EMAIL;
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
@@ -58,13 +60,13 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    private void sendMessage(User user) {
+    private void sendMessage(User user) throws MessagingException {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format("Здорова, %s! \n" +
-                            "Добро пожаловать в чатик. Пожалуйста, зайди по ссылке для активации: https://messagersrogovkrytoi.herokuapp.com/activate/%s",
+                            "Добро пожаловать в чатик. Пожалуйста, зайди по ссылке для активации: <a href=\"https://messagersrogovkrytoi.herokuapp.com/activate/%s\">Ссылка</a>",
                     user.getUsername(),
                     user.getActivationCode());
-            mailSender.send(user.getEmail(), "Activation code", message);
+            mailSender.send(user.getEmail(), "Код активации.", message);
         }
     }
 
@@ -98,7 +100,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) {
+    public void updateProfile(User user, String password, String email) throws MessagingException {
         String userEmail = user.getEmail();
 
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||

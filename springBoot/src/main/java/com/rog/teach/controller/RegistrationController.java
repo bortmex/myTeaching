@@ -1,5 +1,6 @@
 package com.rog.teach.controller;
 
+import com.rog.teach.domain.ErrorMessage;
 import com.rog.teach.domain.User;
 import com.rog.teach.domain.dto.CaptchaResponseDto;
 import com.rog.teach.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Map;
@@ -45,7 +47,7 @@ public class RegistrationController {
             @Valid User user,
             BindingResult bindingResult,
             Model model
-    ) {
+    ) throws MessagingException {
         String url = String.format(CAPTCHA_URL, secret,captchaResponce);
         CaptchaResponseDto response = restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponseDto.class);
 
@@ -69,9 +71,13 @@ public class RegistrationController {
             return "registration";
         }
 
-        String message = userService.addUser(user);
-        if (StringUtils.isNotEmpty(message)) {
-            model.addAttribute("usernameError", message);
+        ErrorMessage errorMessage = userService.addUser(user);
+        if (errorMessage != null) {
+            if(errorMessage.getIdentificatorError() == 1) {
+                model.addAttribute("usernameError", errorMessage.getText());
+            } else if(errorMessage.getIdentificatorError() == 2) {
+                model.addAttribute("emailError", errorMessage.getText());
+            }
             return "registration";
         }
 

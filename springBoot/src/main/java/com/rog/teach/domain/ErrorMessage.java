@@ -1,21 +1,18 @@
 package com.rog.teach.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-import javax.persistence.*;
 
+@Getter
 @AllArgsConstructor
-public enum  ErrorMessage {
-    ERROR_DUBL_USER("Пользователь c таким именем уже есть!"),
-    ERROR_NOT_FOUND_USER("Пользователь не найден!"),
-    ERROR_DUBL_USER_EMAIL("Пользователь с таким email уже есть!"),
-    ERROR_ACTUVATION_ACCOUNT("Пользователь не активирован, зайдите на почту для подтверждения вашей учетной записи");
+public enum ErrorMessage {
+    ERROR_DUBL_USER("Пользователь c таким именем уже есть!", 1),
+    ERROR_NOT_FOUND_USER("Пользователь не найден!", null),
+    ERROR_DUBL_USER_EMAIL("Пользователь с таким email уже есть!", 2),
+    ERROR_ACTUVATION_ACCOUNT("Пользователь не активирован, зайдите на почту для подтверждения вашей учетной записи", null);
 
     private String text;
 
-    public String getText() {
-        return text;
-    }
+    private Integer identificatorError;
 }

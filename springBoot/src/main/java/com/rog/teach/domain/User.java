@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.Set;
 @Table(name = "User_$T")
 public class User implements UserDetails {
 
-    private static final Long serialVersionUID = -4695711441767848865L;
+    private static final Long serialVersionUID = 4695711441767848865L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +37,10 @@ public class User implements UserDetails {
     @CollectionTable(name = "userrole_$t", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy("dateMessage DESC")
+    private  Set<Message> messages;
 
     public boolean isAdmin(){
         return roles.contains(Role.ADMIN);
@@ -70,4 +75,16 @@ public class User implements UserDetails {
         return isActive();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
