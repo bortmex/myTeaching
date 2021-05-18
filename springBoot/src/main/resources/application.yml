@@ -26,7 +26,7 @@ spring:
     generate-ddl: false
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
   freemarker:
     expose-request-attributes: true
   mail:
