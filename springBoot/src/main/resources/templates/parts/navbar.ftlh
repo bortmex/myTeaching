@@ -15,10 +15,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Главная</a>
             </li>
+            <#if user??>
             <li class="nav-item">
                 <a class="nav-link" href="/main">Чатик</a>
             </li>
-            <#if user??>
             <li class="nav-item">
                 <a class="nav-link" href="/user-messages/${currentUserId?c}">Мои сообщения</a>
             </li>
@@ -35,9 +35,7 @@
             </#if>
         </ul>
 
-        <div class="navbar-text mr-3"> ${name} </div>
-        <#if '${name}'?has_content && '${name}'?is_string && '${name}'!="unknown">
+        <div class="navbar-text mr-3"> <#if user??>${name}<#else>Залогинься</#if> </div>
         <@l.logout/>
-        </#if>
     </div>
 </nav>
