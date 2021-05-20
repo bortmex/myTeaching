@@ -1,7 +1,6 @@
 package com.rog.teach;
 
 import com.rog.teach.controller.MainController;
-import com.sun.javaws.JAuthenticator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
