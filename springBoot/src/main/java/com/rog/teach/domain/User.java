@@ -1,6 +1,7 @@
 package com.rog.teach.domain;
 
 import lombok.Data;
+import lombok.ToString;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "User_$T")
+@ToString(of = {"id", "username", "active", "email"})
 public class User implements UserDetails {
 
     private static final Long serialVersionUID = 4695711441767848865L;

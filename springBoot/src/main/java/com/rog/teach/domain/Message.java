@@ -2,6 +2,7 @@ package com.rog.teach.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import static com.rog.teach.utils.DateUtils.getStrDate;
 @Entity
 @NoArgsConstructor
 @Table(name = "Message_$T")
+@ToString(of = {"id", "text", "tag"})
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
