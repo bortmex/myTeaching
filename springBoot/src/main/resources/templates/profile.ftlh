@@ -15,7 +15,7 @@
                     <input class="form-control" type="email" name="email" placeholder="символы@ебмейл.префикс" value="${email!''}"/>
                 </div>
             </div>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button class="btn btn-primary" type="submit">Сохранить</button>
     </form>
 </@c.page>

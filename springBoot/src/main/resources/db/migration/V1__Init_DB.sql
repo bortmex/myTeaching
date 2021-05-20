@@ -1,6 +1,6 @@
-create sequence if not exists hibernate_sequence start 10000 increment 1;
+create sequence hibernate_sequence start 10000 increment 1;
 
-create table if not exists message_$t (
+create table message_$t (
     id int8 not null,
     date_message
     timestamp,
@@ -11,7 +11,7 @@ create table if not exists message_$t (
      primary key (id)
  );
 
-create table if not exists user_$t (
+create table user_$t (
     id int8 not null,
     activation_code varchar(255),
     active boolean not null,
@@ -21,15 +21,15 @@ create table if not exists user_$t (
     primary key (id)
 );
 
-create table if not exists userrole_$t (
+create table userrole_$t (
     user_id int8 not null,
     roles varchar(255)
 );
 
-alter table if exists message_$t
+alter table message_$t
     add constraint message_user_fk
     foreign key (user_id) references user_$t;
 
-alter table if exists userrole_$t
+alter table userrole_$t
     add constraint user_role_user_fk
     foreign key (user_id) references user_$t;
