@@ -6,4 +6,4 @@
 
 Spring Boot проект:
 
-2. Spring Boot -> разбор Spring Boot (branch -> lesson11, lessin12, lesson13, lesson14, lesson15, lesson16, lesson17, lesson18, lesson19, lesson20, lesson21, lesson22, lesson23, lesson24... )
+2. Spring Boot -> разбор Spring Boot (branch -> lesson11, lessin12, lesson13, lesson14, lesson15, lesson16, lesson17, lesson18, lesson19, lesson20, lesson21, lesson22, lesson23, lesson24, lesson25, lesson26... )
