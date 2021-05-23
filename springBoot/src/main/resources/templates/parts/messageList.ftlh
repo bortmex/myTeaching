@@ -1,6 +1,8 @@
 <#include "security.ftlh">
+<#import "pager.ftlh" as p>
+<@p.pager url page/>
 <div id="message-list">
-    <#list messages as message>
+    <#list page.content as message>
         <div class="card my-3" data-id="${message.id?c}">
             <#if message.file??>
                 <img id="imageMessage" src="${message.file}" class="card-img-top" style="width: 18rem;"/>
@@ -22,3 +24,5 @@
         Нет сообщений
     </#list>
 </div>
+
+<@p.pager url page/>
