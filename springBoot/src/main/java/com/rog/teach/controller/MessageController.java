@@ -3,10 +3,15 @@ package com.rog.teach.controller;
 import com.rog.teach.domain.Message;
 import com.rog.teach.domain.User;
 import com.rog.teach.repos.MessageRepo;
+import com.rog.teach.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +36,11 @@ import static com.rog.teach.utils.DateUtils.ZONE.ZONED_DATE_TIME_EUROPE_MOSCOW;
 
 @Controller
 @RequiredArgsConstructor
-public class MainController {
+public class MessageController {
 
     private final MessageRepo messageRepo;
+
+    private final MessageService messageService;
 
     private final HttpServletRequest request;
 
@@ -46,16 +53,15 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Message> messages;
+    public String main(
+            @RequestParam(required = false, defaultValue = "") String filter,
+            Model model,
+            @PageableDefault(sort =  { "id" }, direction =  Sort.Direction.DESC) Pageable pageable
+    ) {
+        Page<Message> page = messageService.messageList(pageable, filter);
 
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-            model.addAttribute("messages", messages);
-        } else {
-            messages = messageRepo.findAllByOrderByDateMessageDesc();
-        }
-        model.addAttribute("messages", messages);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
         return "main";
     }
@@ -79,7 +85,8 @@ public class MainController {
             @Valid Message message,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("file") MultipartFile file,
+            @PageableDefault(sort =  { "id" }, direction =  Sort.Direction.DESC) Pageable pageable
     ) throws IOException {
         message.setAuthor(user);
         message.setDateMessage(ZonedDateTime.now(ZONED_DATE_TIME_EUROPE_MOSCOW.getZone()).toLocalDateTime());
@@ -93,27 +100,30 @@ public class MainController {
             model.addAttribute("message", null);
             messageRepo.save(message);
         }
-        Iterable<Message> messages = messageRepo.findAllByOrderByDateMessageDesc();
-        model.addAttribute("messages", messages);
+        Page<Message> page = messageRepo.findAll(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         return "main";
     }
 
-    @GetMapping("/user-messages/{user}")
+    @GetMapping("/user-messages/{author}")
     public String userMessages(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,
+            @PathVariable User author,
             Model model,
-            @RequestParam(required = false) Message message
+            @RequestParam(required = false) Message message,
+            @PageableDefault(sort =  { "id" }, direction =  Sort.Direction.DESC) Pageable pageable
     ) {
-        Set<Message> messages = user.getMessages();
+        Page<Message> page  = messageService.messageListForUser(pageable, author);
 
-        model.addAttribute("userChannel", user);
-        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
-        model.addAttribute("subscribersCount", user.getSubscribers().size());
-        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        model.addAttribute("messages", messages);
+        model.addAttribute("userChannel", author);
+        model.addAttribute("subscriptionsCount", author.getSubscriptions().size());
+        model.addAttribute("subscribersCount", author.getSubscribers().size());
+        model.addAttribute("isSubscriber", author.getSubscribers().contains(currentUser));
+        model.addAttribute("page", page);
         model.addAttribute("message", message);
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("isCurrentUser", currentUser.equals(author));
+        model.addAttribute("url", "/user-messages/" + author.getId());
         return "userMessages";
     }
 
@@ -133,7 +143,7 @@ public class MainController {
             if (!StringUtils.isEmpty(tag)) {
                 message.setTag(tag);
             }
-            if (file != null  && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+            if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
                 saveFile(message, file);
             }
             messageRepo.save(message);

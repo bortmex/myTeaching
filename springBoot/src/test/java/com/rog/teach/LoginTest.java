@@ -1,6 +1,6 @@
 package com.rog.teach;
 
-import com.rog.teach.controller.MainController;
+import com.rog.teach.controller.MessageController;
 import lombok.NoArgsConstructor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class LoginTest {
     private MockMvc mockMvc;
 
     @Autowired
-    public MainController mainController;
+    public MessageController messageController;
 
     @Test
     public void contextLoads() throws Exception {
