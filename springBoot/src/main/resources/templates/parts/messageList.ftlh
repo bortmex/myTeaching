@@ -14,6 +14,14 @@
             <div class="card-footer text-right">
                 <span class="dateFont">${message.strDateMessage}</span>
                 <a href="/user-messages/${message.author.id?c}"> ${message.authorName} </a>
+                <a class="col akign-self-center" href="/message/${message.id?c}/like">
+                    <#if message.meLiked>
+                    <i class="fas fa-heart"></i>
+                    <#else>
+                    <i class="far fa-heart"></i>
+                    </#if>
+                    ${message.likes}
+                </a>
                 <#if message.author.id = currentUserId>
                     <a class="btn btn-primary" href="/user-messages/${message.author.id?c}?message=${message.id?c}">
                         Редактировать </a>
