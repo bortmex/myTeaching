@@ -1,5 +1,6 @@
 package com.rog.teach.domain;
 
+import com.rog.teach.utils.MessageHelper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -8,6 +9,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.rog.teach.utils.DateUtils.getStrDate;
 
@@ -36,6 +39,14 @@ public class Message {
     @Column(length = 65535)
     private String file;
 
+    @ManyToMany
+    @JoinTable(
+            name= "Message_likes_$T",
+            joinColumns = { @JoinColumn(name = "message_id")},
+            inverseJoinColumns = { @JoinColumn(name = "user_id")}
+    )
+    private Set<User> likes = new HashSet<>();
+
     public Message(String text, String tag, LocalDateTime date, User user) {
         this.text = text;
         this.tag = tag;
@@ -44,7 +55,7 @@ public class Message {
     }
 
     public String getAuthorName() {
-        return (author != null && author.getUsername() != null) ? author.getUsername() : "<none user>";
+        return MessageHelper.getAuthorName(author);
     }
 
     public String getStrDateMessage() {
