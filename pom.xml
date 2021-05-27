@@ -19,6 +19,7 @@
         <module>springBoot</module>
         <module>parallelExecution</module>
         <module>javaCore</module>
+        <module>catalizator</module>
     </modules>
 
     <dependencies>
