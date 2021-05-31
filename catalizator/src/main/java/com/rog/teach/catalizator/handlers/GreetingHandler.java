@@ -8,6 +8,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -42,8 +44,10 @@ public class GreetingHandler {
     public Mono<ServerResponse> index(ServerRequest serverRequest) {
         String user = serverRequest.queryParam("user")
                 .orElse("Nobody");
+        Map<String, String> map = new HashMap<>();
+        map.put("user", user);
         return ServerResponse
                 .ok()
-                .render("index", Map.of("user", user));
+                .render("index", Collections.unmodifiableMap(map));
     }
 }
