@@ -1,2 +1,19 @@
 server:
   port: ${PORT:8082}
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc=DEBUG:
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost/catalizator
+    username: root
+    password: root
+  flyway:
+    url: jdbc:postgresql://localhost/catalizator
+    user: root
+    password: root
