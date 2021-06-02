@@ -17,3 +17,6 @@ spring:
     url: jdbc:postgresql://localhost/catalizator
     user: root
     password: root
+
+  main:
+    web-application-type: reactive
