@@ -3,12 +3,14 @@ package com.rog.teach.catalizator.controller;
 import com.rog.teach.catalizator.domain.Message;
 import com.rog.teach.catalizator.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/controller")
+@PreAuthorize("hasRole('ADMIN')")
 public class MainController {
     private final MessageService messageService;
 
