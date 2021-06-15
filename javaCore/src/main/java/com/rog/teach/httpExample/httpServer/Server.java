@@ -3,9 +3,10 @@ package com.rog.teach.httpExample.httpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -15,12 +16,11 @@ public class Server {
     private final static int BUFFER_SIZE = 256;
     private AsynchronousServerSocketChannel server;
 
-    private final static String HEADERS =
-            "HTTP/1.1 200 OK\n" +
-                    "Server: naive\n" +
-                    "Content-Type: text/html\n" +
-                    "Content-Length: %s\n" +
-                    "Connection: close\n\n";
+    private final HttpHandler handler;
+
+    public Server(HttpHandler handler) {
+        this.handler = handler;
+    }
 
     public void bootstrap() {
         try {
@@ -43,7 +43,7 @@ public class Server {
     }
 
     private void handleClient(Future<AsynchronousSocketChannel> future) throws InterruptedException, ExecutionException, TimeoutException, IOException {
-        System.out.println("new client thread");
+        System.out.println("new client connection");
 
         AsynchronousSocketChannel clientChannel = future.get(30, TimeUnit.SECONDS);
 
@@ -53,23 +53,45 @@ public class Server {
             boolean keepReading = true;
 
             while (keepReading) {
-                clientChannel.read(buffer).get();
+                int readResult = clientChannel.read(buffer).get();
 
-                int position = buffer.position();
-                keepReading = position == BUFFER_SIZE;
-
+                keepReading = readResult == BUFFER_SIZE;
+                buffer.flip();
+                CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer);
                 //buffer.flip();
                 //clientChannel.write(buffer);
-                byte[] array = keepReading
+  /*              byte[] array = keepReading
                         ? buffer.array()
-                        : Arrays.copyOfRange(buffer.array(), 0, position);
-                builder.append(new String(array));
+                        : Arrays.copyOfRange(buffer.array(), 0, position);*/
+                builder.append(charBuffer);
                 buffer.clear();
             }
 
-            String body = "<html><body><h1>Hello, naive</h1></body></html>";
-            String page = String.format(HEADERS, body.length()) + body;
-            ByteBuffer resp = ByteBuffer.wrap(page.getBytes());
+            HttpRequest request = new HttpRequest(builder.toString());
+            HttpResponse response = new HttpResponse();
+            if(handler != null) {
+                try {
+                    //throw new RuntimeException("boom");
+                    String body = this.handler.handle(request, response);
+                    if(body != null && !body.isEmpty()){
+                        if(response.getHeaders().get("Content-Type") == null) {
+                            response.addHeader("Content-Type", "text/html; charset=utf-8");
+                        }
+                        response.setBody(body);
+                    }
+                } catch (Exception e) {
+                    response.setStatusCode(500);
+                    response.setStatus("Internal server error");
+                    response.addHeader("Content-Type", "text/html; charset=utf-8");
+                    response.setBody("<html><body><h1>Error happens</h1></body></html>");
+                }
+            } else {
+                response.setStatusCode(404);
+                response.setStatus("Not found");
+                response.addHeader("Content-Type", "text/html; charset=utf-8");
+                response.setBody("<html><body><h1>Resource not found</h1></body></html>");
+            }
+            ByteBuffer resp = ByteBuffer.wrap(response.getBytes());
             clientChannel.write(resp);
 
             clientChannel.close();
