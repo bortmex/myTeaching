@@ -20,6 +20,9 @@
         <module>parallelExecution</module>
         <module>javaCore</module>
         <module>catalizator</module>
+        <module>JavaEE</module>
+        <module>cataCodeWars</module>
+        <module>spring</module>
     </modules>
 
     <dependencies>
