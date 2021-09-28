@@ -17,4 +17,9 @@ public class ConfigBean {
         simpleObject.setMessage("My first annotation!!!");
         return simpleObject;
     }
+
+    @Bean
+    private ProfilingHandlerBeanPostProcessor profilingHandlerBeanPostProcessor() throws Exception {
+        return new ProfilingHandlerBeanPostProcessor();
+    }
 }
