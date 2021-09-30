@@ -1,4 +1,4 @@
-package com.rog.teach.annotation;
+package com.rog.teach.annotation.entity;
 
 public interface Quoter {
     public void sayQuote();

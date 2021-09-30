@@ -1,5 +1,6 @@
-package com.rog.teach.annotation;
+package com.rog.teach.annotation.beansPostProcessor;
 
+import com.rog.teach.annotation.customAnnotation.InjectRandomInt;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.util.ReflectionUtils;

@@ -1,10 +1,8 @@
-package com.rog.teach.annotation;
+package com.rog.teach.annotation.customAnnotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InjectRandomInt {
-    int min();
-    int max();
+public @interface PostProxy {
 }

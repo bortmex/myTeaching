@@ -1,7 +1,7 @@
-package com.rog.teach.annotation;
+package com.rog.teach.annotation.controller;
 
 public class ProfilingController implements ProfilingControllerMBean{
-    private boolean enabled;
+    private boolean enabled = true;
 
     public boolean isEnabled() {
         return enabled;

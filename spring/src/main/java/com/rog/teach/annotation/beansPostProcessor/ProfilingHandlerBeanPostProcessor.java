@@ -1,5 +1,7 @@
-package com.rog.teach.annotation;
+package com.rog.teach.annotation.beansPostProcessor;
 
+import com.rog.teach.annotation.controller.ProfilingController;
+import com.rog.teach.annotation.customAnnotation.Profiling;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
