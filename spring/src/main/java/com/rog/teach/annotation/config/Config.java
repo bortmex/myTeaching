@@ -1,22 +1,34 @@
 package com.rog.teach.annotation.config;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.*;
+import com.rog.teach.annotation.screensaver.ColorFrame;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import java.awt.*;
 import java.util.Random;
 
-@Configurable
-@ComponentScan(basePackages = "com.rog.teach.annotation.entity")
+@Configuration
+@ComponentScan(basePackages = "com.rog.teach.annotation.screensaver")
 public class Config {
 
     @Bean
-    @Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
-    private Color color(){
+    @Scope(value = "periodical")
+    public Color color(){
         Random random = new Random();
         return new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
 
+    @Bean
+    public ColorFrame frame(){
+        return new ColorFrame() {
+            @Override
+            protected Color getColor() {
+                return color();
+            }
+        };
+    }
 //
 //    @Bean
 //    private InjectRandomIntAnnotationBeanPostProcessor injectRandomIntAnnotationBeanPostProcessor(){

@@ -8,7 +8,7 @@ import com.rog.teach.annotation.customAnnotation.Profiling;
 import javax.annotation.PostConstruct;
 
 @Profiling
-@DeprecatedClass(newImpl = SimpleObject2.class)
+/*@DeprecatedClass(newImpl = SimpleObject2.class)*/
 public class SimpleObject implements Quoter{
     @InjectRandomInt(min = 2, max = 7)
     private int repeat;
