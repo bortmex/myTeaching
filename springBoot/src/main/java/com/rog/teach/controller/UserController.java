@@ -2,7 +2,7 @@ package com.rog.teach.controller;
 
 import com.rog.teach.domain.Role;
 import com.rog.teach.domain.User;
-import com.rog.teach.service.UserService;
+import com.rog.teach.simpleSpring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

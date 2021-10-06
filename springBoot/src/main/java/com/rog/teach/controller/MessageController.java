@@ -4,7 +4,7 @@ import com.rog.teach.domain.Message;
 import com.rog.teach.domain.User;
 import com.rog.teach.domain.dto.MessageDto;
 import com.rog.teach.repos.MessageRepo;
-import com.rog.teach.service.MessageService;
+import com.rog.teach.simpleSpring.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;

@@ -1,4 +1,4 @@
-package com.rog.teach.service;
+package com.rog.teach.simpleSpring.service;
 
 import com.rog.teach.domain.User;
 import com.rog.teach.domain.dto.MessageDto;

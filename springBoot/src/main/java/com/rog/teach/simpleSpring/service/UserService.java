@@ -1,4 +1,4 @@
-package com.rog.teach.service;
+package com.rog.teach.simpleSpring.service;
 
 import com.rog.teach.domain.ErrorMessage;
 import com.rog.teach.domain.Role;

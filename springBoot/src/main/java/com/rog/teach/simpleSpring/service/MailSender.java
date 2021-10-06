@@ -1,4 +1,4 @@
-package com.rog.teach.service;
+package com.rog.teach.simpleSpring.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
