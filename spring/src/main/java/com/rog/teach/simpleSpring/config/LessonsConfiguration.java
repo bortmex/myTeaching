@@ -9,7 +9,7 @@ import org.springframework.context.annotation.*;
 @ComponentScan(basePackages = "com.rog.teach.simpleSpring")
 @Import(AnotherConfiguration.class) //<- подключаем другой конфигуратор
 //@ImportResource <- если нужно подлюдчить конфигуратор из ресурсов
-@PropertySource("classpath:app.properties")
+@PropertySource("classpath:simpleSpring/app.properties")
 public class LessonsConfiguration {
 
     @Bean

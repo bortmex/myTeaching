@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MainTest {
     public static void main(String[] args) throws InterruptedException {
 
-       ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
+       ApplicationContext context = new ClassPathXmlApplicationContext("annotation/context.xml");
  //     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigBean.class);
         context.getBean(Quoter.class).sayQuote();
 //        while (true) {
