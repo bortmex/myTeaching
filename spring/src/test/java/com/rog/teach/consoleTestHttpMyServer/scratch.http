@@ -15,3 +15,28 @@ Content-Type: application/json
 
 ###
 //Press Ctrl+Alt+Shift+Insert and select HTTP Request.
+
+DELETE http://localhost:8093/v1/students/delete/405
+Content-Type: application/json
+
+###
+PUT http://localhost:8093/v1/students/edit
+Content-Type: application/json
+
+{
+  "id": 404,
+  "name": "Tomas1",
+  "dob": "2005-07-06"
+}
+
+###
+POST http://localhost:8093/v1/students/add
+Content-Type: application/json
+
+{
+  "name": "Mari",
+  "email": "alex@gmail.com",
+  "dob": "2005-07-25"
+}
+
+###
