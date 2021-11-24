@@ -2,6 +2,7 @@ package com.rog.teach;
 
 import com.rog.teach.controller.MessageController;
 import lombok.NoArgsConstructor;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class LoginTest {
     public MessageController messageController;
 
     @Test
+    @Ignore
     public void contextLoads() throws Exception {
         this.mockMvc.perform(get("/"))
                 .andDo(print())
@@ -42,6 +44,7 @@ public class LoginTest {
     }
 
     @Test
+    @Ignore
     public void accessDeniedTest() throws Exception {
         this.mockMvc.perform(get("/main"))
                 .andDo(print())
@@ -50,6 +53,7 @@ public class LoginTest {
     }
 
     @Test
+    @Ignore
     @Sql(value = {"/db/create-user-before.sql", "/db/messages-list-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     @Sql(value = {"/db/messages-list-after.sql", "/db/create-user-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void correctLoginTest() throws Exception {
@@ -60,6 +64,7 @@ public class LoginTest {
     }
 
     @Test
+    @Ignore
     public void badCredentials() throws Exception {
         this.mockMvc.perform(post("/login").param("user", "Alfred"))
                 .andDo(print())
