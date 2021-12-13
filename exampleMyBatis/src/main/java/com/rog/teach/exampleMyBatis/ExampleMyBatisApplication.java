@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ExampleMyBatisApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ExampleMyBatisApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ExampleMyBatisApplication.class, args);
+    }
 
 }

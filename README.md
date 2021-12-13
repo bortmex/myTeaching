@@ -26,7 +26,7 @@ JavaEE
 
 Spring
 
-7. Spring -> (branch -> lesson35)
+7. Spring -> (branch -> lesson36)
 
 Testing
 
@@ -34,4 +34,8 @@ Testing
 
 MyBatis
 
-10. MyBatis -> (branch -> lesson37)
+10. MyBatis -> (branch -> lesson38)
+
+Kotlin
+
+11. Kotlin -> (branch -> lesson39)
