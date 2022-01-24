@@ -1,5 +1,8 @@
 # Default ignored files
 /.idea/*
 *.iml
+.gradle
+wrapper
+exampleTrackerApi/build/*
 /springBoot/src/main/resources/application.properties
 target

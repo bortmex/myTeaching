@@ -23,8 +23,8 @@
         <module>JavaEE</module>
         <module>cataCodeWars</module>
         <module>spring</module>
-        <module>myBatis</module>
         <module>exampleMyBatis</module>
+        <module>exampleTrackerApi</module>
     </modules>
 
     <dependencies>
