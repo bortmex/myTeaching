@@ -24,7 +24,7 @@
         <module>cataCodeWars</module>
         <module>spring</module>
         <module>exampleMyBatis</module>
-        <module>exampleTrackerApi</module>
+        <module>jobInterviewExamples</module>
     </modules>
 
     <dependencies>
