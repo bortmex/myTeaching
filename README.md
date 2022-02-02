@@ -24,9 +24,13 @@ JavaEE
 
 6. JavaEE -> (branch -> lesson35)
 
+JavaCore
+
+7. JavaCore -> (branch -> lesson41)
+
 Spring
 
-7. Spring -> (branch -> lesson36)
+8. Spring -> (branch -> lesson36)
 
 Testing
 
@@ -39,3 +43,11 @@ MyBatis
 Kotlin
 
 11. Kotlin -> (branch -> lesson39)
+
+Job interview
+
+12. Interview -> (branch -> lesson40)
+
+Redis
+
+13. Redis -> (branch -> lesson42)
