@@ -1,4 +1,4 @@
-package com.rog.teach.exampleTaskJavaRush;
+package com.rog.teach.exampleTaskJavaRush.task0407;
 
 import java.util.stream.IntStream;
 
