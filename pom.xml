@@ -26,6 +26,7 @@
         <module>exampleMyBatis</module>
         <module>jobInterviewExamples</module>
         <module>exampleSpringDataRedis</module>
+        <module>simpleKafkaSpringExample</module>
     </modules>
 
     <dependencies>
